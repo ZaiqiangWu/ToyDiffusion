@@ -105,6 +105,7 @@ for t in tqdm(range(0, num_diffusion_timesteps)):
 # %%
 data = data.detach().cpu().numpy()
 x_new, y_new = unpack_1d_data(data)
+data = torch.from_numpy(data).to(device)
 
 import seaborn as sns
 
