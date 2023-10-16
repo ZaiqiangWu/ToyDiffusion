@@ -55,7 +55,7 @@ list_bar_alphas = torch.cumprod(alphas, axis=0).to(torch.float32).to(device)
 import torch.nn as nn
 import torch.optim as optim
 
-training_steps_per_epoch = 4
+training_steps_per_epoch = 4###
 
 criterion = nn.MSELoss()
 denoising_model = Denoising(DATA_SIZE, num_diffusion_timesteps).to(device)
@@ -67,7 +67,7 @@ optimizer = optim.AdamW(denoising_model.parameters())
 # %%
 from tqdm import tqdm
 
-pbar = tqdm(range(5))
+pbar = tqdm(range(5))###
 for epoch in pbar:  # loop over the dataset multiple times
 
     running_loss = 0.0

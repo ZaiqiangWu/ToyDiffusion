@@ -80,6 +80,8 @@ class Denoising(torch.nn.Module):
         self.relu = torch.nn.ReLU()
 
     def forward(self, x_input, t):
+        print(type(x_input))
+        print(type(t))
         emb_t = self.emb[t]
         x = self.linear1(x_input+emb_t)
         x = self.relu(x)
