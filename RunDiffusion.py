@@ -8,10 +8,12 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 x,y = scatter_pixels('homer.png')
 x = [x/25 -3 for x in x]
 y = [y/25 -2 for y in y]
+print(x)
+print(y)
 
 import seaborn as sns
 
-ax = sns.scatterplot([x, y])
+ax = sns.scatterplot(x=x,y=y)
 # %%
 ## Store the ax to plot the result later
 y_ax = ax.get_ylim()
@@ -109,7 +111,7 @@ data = torch.from_numpy(data).to(device)
 
 import seaborn as sns
 
-sns.scatterplot([x_new, y_new])
+sns.scatterplot(x=x_new, y=y_new)
 # %% md
 ### Create an AWESOME HD 24fps GIF
 # %%
