@@ -108,7 +108,7 @@ x_new, y_new = unpack_1d_data(data)
 
 import seaborn as sns
 
-sns.scatterplot(x_new, y_new)
+sns.scatterplot([x_new, y_new])
 # %% md
 ### Create an AWESOME HD 24fps GIF
 # %%
