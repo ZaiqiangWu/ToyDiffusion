@@ -126,7 +126,7 @@ fig = plt.figure()
 camera = Camera(fig)
 
 # animation draws one data point at a time
-for d in range(1, num_diffusion_timesteps):
+for d in range(1, num_diffusion_timesteps*2):
     data = denoise_with_mu(denoising_model, data, num_diffusion_timesteps - d, alphas, list_bar_alphas, DATA_SIZE,
                            device)
     data_plot = data.detach().cpu().numpy()
@@ -137,4 +137,4 @@ for d in range(1, num_diffusion_timesteps):
     camera.snap()
 
 anim = camera.animate(blit=False)
-anim.save('output.gif', fps=24, dpi=120)
+anim.save('output2.gif', fps=24, dpi=120)
