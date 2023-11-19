@@ -8,8 +8,8 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 x,y = scatter_pixels('homer.png')
 x = [x/25 -3 for x in x]
 y = [y/25 -2 for y in y]
-print(x)
-print(y)
+#print(x)
+#print(y)
 
 import seaborn as sns
 
@@ -25,6 +25,7 @@ one_d_data = pack_data(x, y)
 x_init = torch.tensor(one_d_data).to(torch.float32).to(device)
 
 DATA_SIZE = len(x_init)
+print("DATA SIZE:", DATA_SIZE)
 
 # %% md
 # Diffusion Parameters
@@ -36,7 +37,7 @@ num_diffusion_timesteps = 30
 from operator import mul
 from functools import reduce
 
-betas = np.linspace(beta_start ** 0.5, beta_end ** 0.5, num_diffusion_timesteps) ** 2
+betas = np.linspace(beta_start ** 0.5, beta_end ** 0.5, num_diffusion_timesteps) ** 2 #linear interpolation
 alphas = 1 - betas
 
 # send parameters to device
@@ -47,9 +48,10 @@ alphas = torch.tensor(alphas).to(torch.float32).to(device)
 list_bar_alphas = [alphas[0]]
 for t in range(1, num_diffusion_timesteps):
     list_bar_alphas.append(reduce(mul, alphas[:t]))
+print(list_bar_alphas)
 
 list_bar_alphas = torch.cumprod(alphas, axis=0).to(torch.float32).to(device)
-# %%
+print(list_bar_alphas)# %%
 
 # %% md
 ## Training Procedure
@@ -126,7 +128,7 @@ fig = plt.figure()
 camera = Camera(fig)
 
 # animation draws one data point at a time
-for d in range(1, num_diffusion_timesteps*2):
+for d in range(1, num_diffusion_timesteps):
     data = denoise_with_mu(denoising_model, data, num_diffusion_timesteps - d, alphas, list_bar_alphas, DATA_SIZE,
                            device)
     data_plot = data.detach().cpu().numpy()
